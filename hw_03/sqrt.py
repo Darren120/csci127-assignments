@@ -1,7 +1,7 @@
 def mysqrt(int):
-    guess = float(5)
+    guess = 5
     answer = 0
-    while (guess * guess != float(int)):
+    while (guess * guess != int):
         answer = ((guess) + (int/guess)) / 2
         if guess == answer:
             return "UNSQUARABLE BUTT Closest square root is:", guess
