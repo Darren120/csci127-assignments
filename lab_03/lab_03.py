@@ -8,7 +8,7 @@ dictionary = {
     "noun":"chair,oven,laptop,poop,backpack,foot"
     }
 
-sentence = "I am <adj> and i like to <verb> <noun> "
+sentence = "I am <adj>! and i like to <verb> <noun> "
 sentence1 = "<person> is <adj>"
 
 def madlibs(sentence):
@@ -29,9 +29,13 @@ def punc(sentence, bool):
     if bool: 
         sentence = sentence.replace(".", " . ")
         sentence = sentence.replace(",", " , ")
+        sentence = sentence.replace("!", " ! ")
+        sentence = sentence.replace("?", " ? ")
     else: 
         sentence = sentence.replace(" .", ".")
         sentence = sentence.replace(" ,", ",")
+        sentence = sentence.replace(" !", "!")
+        sentence = sentence.replace(" ?", "?")
     return sentence
 
 def get_random_from_list(l):
