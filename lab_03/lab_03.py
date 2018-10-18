@@ -9,38 +9,33 @@ dictionary = {
     }
 
 sentence = "I am <adj>! and i like to <verb> <noun> "
-sentence1 = "<person> is <adj>"
+sentence1 = "<person>! is cool"
 
 def madlibs(sentence):
-    sentence = punc(sentence, True)
     l = sentence.split()
     res = []
     for w in l:
         if '<' in w:
-            to_replace = w[1:-1]
-            word_bank = dictionary[to_replace].split(',')
-            res.append(get_random_from_list(word_bank))
+            key = w[1:-1]
+            print(w[1:-1])
+            has_punc = w.index('>') + 1 < len(w)
+            if has_punc:
+                key = w[1:-2]
+                print(w[1:-2])
+            choice = choose_and_remove(key, dictionary)
+            if has_punc:
+                choice = choice + w[-1]
+            res.append(choice)
         else:
             res.append(w)
-    new_sentence = punc(" ".join(res), False)
+    new_sentence = " ".join(res)
     return new_sentence
 
-def punc(sentence, bool):
-    if bool: 
-        sentence = sentence.replace(".", " . ")
-        sentence = sentence.replace(",", " , ")
-        sentence = sentence.replace("!", " ! ")
-        sentence = sentence.replace("?", " ? ")
-    else: 
-        sentence = sentence.replace(" .", ".")
-        sentence = sentence.replace(" ,", ",")
-        sentence = sentence.replace(" !", "!")
-        sentence = sentence.replace(" ?", "?")
-    return sentence
-
-def get_random_from_list(l):
-    rng = random.randint(0, len(l) - 1)
-    return l[rng]
+def choose_and_remove(key, dictionary):
+    word_bank = dictionary[key].split(',')
+    choice = random.choice(word_bank)
+    dictionary[key] = dictionary[key].replace("," + choice, "")
+    return choice
 
 print(madlibs(sentence))
 print(madlibs(sentence1))
