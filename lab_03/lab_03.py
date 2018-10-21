@@ -1,3 +1,4 @@
+# Darren Zou & Christopher He 
 import random
 
 dictionary = {
@@ -8,30 +9,29 @@ dictionary = {
     "noun":"chair,oven,laptop,poop,backpack,foot"
     }
 
-sentence = "I am <adj>! and i like to <verb> <noun> "
+sentence = "I am <adj> and i like to <verb> <noun> "
 sentence1 = "<person>! is cool"
 
 def madlibs(sentence):
     l = sentence.split()
     res = []
     for w in l:
-        if '<' in w:
-            key = w[1:-1]
-            print(w[1:-1])
-            has_punc = w.index('>') + 1 < len(w)
-            if has_punc:
-                key = w[1:-2]
-                print(w[1:-2])
-            choice = choose_and_remove(key, dictionary)
-            if has_punc:
-                choice = choice + w[-1]
-            res.append(choice)
+        if '<' in w and '>' in w:
+            key = extract_key(w)
+            choice = choose_and_remove_from(key, dictionary) # avoid repeats
+            replaced = w.replace(key, choice).replace('<', '').replace('>', '')
+            res.append(replaced)
         else:
             res.append(w)
     new_sentence = " ".join(res)
     return new_sentence
 
-def choose_and_remove(key, dictionary):
+def extract_key(s):
+    start = s.index('<') + 1
+    end = s.index('>')
+    return s[start:end]
+
+def choose_and_remove_from(key, dictionary):
     word_bank = dictionary[key].split(',')
     choice = random.choice(word_bank)
     dictionary[key] = dictionary[key].replace("," + choice, "")
