@@ -5,5 +5,5 @@ def divide(A,B,u):
         u -= ratio
         ppl+=1
     return ppl
-print(divide(25,20,1))
+print(divide(5,10,1))
 
