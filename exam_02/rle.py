@@ -12,5 +12,15 @@ def encode(w):
             v = 1
     return l
 
+def decode(l):
+    res = ""
+    a = 0
+    for i in l:
+        for a in range(i[1]):
+            res+= i[0]
+    return res
+    
+    
 
-print(encode("aaabba"))
+print(decode(encode("aaabbaabbbba")))
+print(encode("aaabbaabbbba"))
